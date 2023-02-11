@@ -75,15 +75,18 @@ public class TextLeaderboard : MonoBehaviour
         {
             var data = operation.webRequest.downloadHandler.text;
             var players = JsonConvert.DeserializeObject<UserData[]>(data);
-            
+            int index = 1;
             foreach (var player in players)
             {
                 GameObject playerData = Instantiate(userData, textSpawnPosition, Quaternion.identity, parent);
                 TMP_Text usernameText = playerData.transform.Find("Username").GetComponent<TMP_Text>();
                 TMP_Text scoreText = playerData.transform.Find("Score").GetComponent<TMP_Text>();
+                TMP_Text rankText = playerData.transform.Find("Rank").GetComponent<TMP_Text>();
                 textSpawnPosition.y += posIncrement;
                 usernameText.text = player.username;
                 scoreText.text = player.score.ToString();
+                rankText.text = index.ToString();
+                index++;
                 Debug.Log(player.username);
             }
         }
